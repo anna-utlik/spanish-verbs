@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -13,13 +15,127 @@ import org.apache.poi.ss.usermodel.Row;
 
 public class Main {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 
 		Set<String> inputVerbs = new HashSet<>();
-		inputVerbs.addAll(Arrays.asList(args));
+		inputVerbs.addAll(Arrays.asList("ser"
+				, "ir"
+				, "ver"
+				, "dar"
+				, "saber"
+				, ""
+				, "parecer"
+				, "conocer"
+				, "aparecer"
+				, "producir"
+				, "reconocer"
+				, "nacer"
+				, "ofrecer"
+				, "crecer"
+				, "establecer"
+				, "desaparecer"
+				, ""
+				, "poder"
+				, "encontrar"
+				, "volver"
+				, "recordar"
+				, "morir"
+				, "mover"
+				, "contar"
+				, "costar"
+				, "soler"
+				, "mostrar"
+				, "resolver"
+				, "demostrar"
+				, "acordar"
+				, ""
+				, "decir"
+				, "tener"
+				, "poner"
+				, "seguir"
+				, "venir"
+				, "salir"
+				, "mantener"
+				, "caer"
+				, "traer"
+				, "suponer"
+				, "oír"
+				, "valer"
+				, "imponer"
+				, "proponer"
+				, "obtener"
+				, "detener"
+				, ""
+				, "sentir"
+				, "querer"
+				, "pensar"
+				, "empezar"
+				, "perder"
+				, "entender"
+				, "convertir"
+				, "referir"
+				, "cerrar"
+				, "preferir"
+				, "comenzar"
+				, "elegir"
+				, "negar"
+				, "adquirir"
+				, ""
+				, "servir"
+				, "pedir"
+				, "repetir"
+				, ""
+				, "jugar"
+				, ""
+				, "dirigir"
+				, "elegir"
+				, "recoger"
+				, "exigir"
+				, "surgir"
+				, ""
+				, "llegar"
+				, "creer"
+				, "buscar"
+				, "escribir"
+				, "conseguir"
+				, "sacar"
+				, "leer"
+				, "abrir"
+				, "realizar"
+				, "explicar"
+				, "tocar"
+				, "alcanzar"
+				, "utilizar"
+				, "pagar"
+				, "descubrir"
+				, "continuar"
+				, "acercar"
+				, "dedicar"
+				, "indicar"
+				, "significar"
+				, "reunir"
+				, "construir"
+				, "andar"
+				, "entregar"
+				, "colocar"
+				, "actuar"
+				, "romper"
+				, "lanzar"
+				, "avanzar"
+				, "obligar"
+				, "aplicar"));
 
-		Main main = new Main();
-		main.writeVerbs();
+		ExecutorService executorService = Executors.newFixedThreadPool(1);
+		executorService.submit(() -> {
+					Main main = new Main();
+					try {
+						main.writeVerbs();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					System.out.println("Hello)");
+				}
+		);
 	}
 
 	private Map<String, VerbsConjugation> searchForVerbs(Collection<String> inputVerbs) throws IOException {
@@ -116,7 +232,7 @@ public class Main {
 				writePersonForm(forms, row);
 			}
 		}
-		try (FileOutputStream outputStream = new FileOutputStream("src/main/resources/myVerbs.xls")) {
+		try (FileOutputStream outputStream = new FileOutputStream("target/myVerbs.xls")) {
 			xssfWorkbook.write(outputStream);
 		}
 	}
